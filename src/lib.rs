@@ -1,5 +1,5 @@
 use std::sync::Arc;
-use web_sys::{ console, js_sys::Array, window, Document, Element };
+use web_sys::{ console, js_sys::Array, window, Element };
 use hematita::{ast::{lexer::Lexer, parser}, compiler, lua_lib::{self}, lua_tuple, lua_value, vm::{value::{Table, Value}, VirtualMachine}};
 use wasm_bindgen::prelude::*;
 
@@ -13,7 +13,9 @@ extern "C" {
 fn element_to_table<'a>(element: Element) -> Table<'a> {
     let table = Table::default();
     let mut editable = table.data.lock().unwrap();
+
     editable.insert(lua_value!("content"), Value::String(element.text_content().unwrap().into()));
+    editable.insert(lua_value!("html"), Value::String(element.outer_html().into()));
 
     drop(editable);
     table

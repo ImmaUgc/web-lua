@@ -8,9 +8,15 @@
 <body>
     <script type="module" src="weblua.m.js"></script>
     <h1>Olá</h1>
+    <script>
+        const element = document.querySelector('h1');
+        console.log('JS textContent:', element.textContent);
+        console.log('JS HTML:', element.outerHTML);
+    </script>
     <lua-script>
-        el = document.select('h1')
-        print('Content: ', el.content)
+        local element = document.select('h1');
+        print('Lua textContent: ' .. element.content)
+        print('Lua HTML: ' .. element.html)
     </lua-script>
 </body>
 </html>
